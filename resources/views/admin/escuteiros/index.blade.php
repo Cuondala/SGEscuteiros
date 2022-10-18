@@ -4,14 +4,14 @@
 
 <section class="section">
 
-    <a class="btn btn-primary mb-3"  href="{{ route('dirigentes.create') }}">Novo Dirigente</a>
+    <a class="btn btn-primary mb-3"  href="{{ route('escuteiros.create') }}">Novo Escuteiro</a>
 
     <div class="row">
       <div class="col-lg-12">
 
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Dirigentes</h5>
+            <h5 class="card-title">Escuteiros</h5>
 
 
             </form>
@@ -22,21 +22,21 @@
                 <tr>
                   <th scope="col">Id</th>
                   <th scope="col">Nome</th>
-                  <th scope="col">Cargo</th>
+                  <th scope="col">Patrulha</th>
                   <th scope="col">Acção</th>
                 </tr>
               </thead>
               <tbody>
-                @foreach ($dirigentes as $dirigente)
+                @foreach ($escuteiros as $escuteiro)
                 <tr>
-                    <th scope="row">{{ $dirigente->id }}</th>
-                    <td>{{ $dirigente->dirigente_nome }}</td>
-                    <td>{{ $dirigente->dirigenteFuncao->cargo }}</td>
+                    <th scope="row">{{ $escuteiro->id }}</th>
+                    <td>{{ $escuteiro->escuteiro_nome }}</td>
+                    <td>{{ $escuteiro->patrulha->patrulha_nome}}</td>
 
                     <td>
-                        <a href=" {{ route('dirigentes.show', $dirigente->id) }}" ><i class="fas fa-eye" style="color: green;"></i></a>
+                        <a href=" {{ route('escuteiros.show', $escuteiro->id) }}" ><i class="fas fa-eye" style="color: green;"></i></a>
                         <a href=" " data-bs-toggle="modal" data-bs-target="#delete"><i class="fas fa-trash" style="color: red;"></i></a>
-                        <a href="{{ route('dirigentes.edit',$dirigente->id) }} "><i class="fas fa-pen-to-square" ></i></a>
+                        <a href="{{ route('escuteiros.edit',$escuteiro->id) }} "><i class="fas fa-pen-to-square" ></i></a>
                     </td>
                   </tr>
                 @endforeach
@@ -53,4 +53,4 @@
   </section>
 
 @endsection
-@include('admin.dirigentes.modal.delete')
+@include('admin.escuteiros.modal.delete')

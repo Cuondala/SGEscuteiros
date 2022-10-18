@@ -6,6 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Escuteiro extends Model
 {
+    protected $fillable = [
+        'escuteiro_nome',
+        'bi',
+        'endereco',
+        'data_nascimento',
+        'email',
+        'descricao',
+        'patrulha_id',
+        'parente_id',
+        'estado'
+    ];
+
     public function patrulha()
     {
         return $this->belongsTo(Patrulha::class);
@@ -16,6 +28,6 @@ class Escuteiro extends Model
     }
 
     public function parente(){
-        return $this->hasOne(Parente::class);
+        return $this->hasMany(Parente::class);
     }
 }

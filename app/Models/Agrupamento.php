@@ -7,12 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Agrupamento extends Model
 {
-
-    protected $fillable=['agrupamento_nome',
-                         'descricao',
-                         'nucleo_id'
-                        ];
-
+    protected $fillable = [
+        'agrupamento_nome',
+        'descricao',
+        'nucleo_id'];
 
    public function nucleo(){
         return $this->belongsTo(Nucleo::class);

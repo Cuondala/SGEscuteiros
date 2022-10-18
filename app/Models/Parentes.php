@@ -6,11 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Parente extends Model
 {
+
+    protected $fillable = [
+        'responsavel_1',
+        'responsavel_2'
+    ];
+
    public function escuteiro(){
         return $this->hasMany(Escuteiro::class);
    }
 
-   public function telefone(){
-        return $this->hasMany(Telefone::class);
-   }
 }

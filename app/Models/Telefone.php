@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Telefone extends Model
 {
+
+    protected $fillable = [
+        'numero_telefone',
+        'dirigente_id',
+        'escuteiro_id'
+    ];
+
     public function escuteiro(){
         return $this->belongsTo(Escuteiro::class);
     }
@@ -15,7 +22,4 @@ class Telefone extends Model
         return $this->belongsTo(Dirigente::class);
     }
 
-    public function parente(){
-        return $this->belongsTo(Parente::class);
-    }
 }

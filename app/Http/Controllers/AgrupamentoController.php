@@ -5,97 +5,84 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Agrupamento;
 use App\Models\Nucleo;
+use App\Models\Regiao;
+use App\Models\Religiao;
 use Illuminate\Support\Facades\DB;
 
 class AgrupamentoController extends Controller
 {
-    //
-
     public function index(){
-
-       $agrupamentos=Agrupamento::with(['nucleo'])->get();
-       //$nucleos=$agrupamentos->nucleo;
-
-       // $agrupamentos=DB::table('agrupamentos')->join('nucleos','nucleos.id', '=', 'nucleo_id')->get();
+        $agrupamentos=Agrupamento::with(['nucleo'])->get();
         return view('admin.agrupamentos.index', compact('agrupamentos'));
     }
 
-    public function create(Request $request){
+    public function create(){
 
-       $nucleos=Nucleo::all();
-
-       return view('admin.agrupamentos.create', compact('nucleos'));
+        $nucleos=Nucleo::get();
+         return view('admin.agrupamentos.create', compact( 'nucleos'));
     }
 
     public function store(Request $request){
 
-        /*
-        $nucleos=Nucleo::findOrFail($request->nucleos_id);
-        $agrupamentos= new Agrupamento();
-        $agrupamentos->agrupamento_nome=$request->agrupamento_nome;
-        $agrupamentos->descricao=$request->descricao;
-        $nucleos->agrupamentos->save($agrupamentos);
-        */
-        DB::beginTransaction();
 
+        DB::beginTransaction();
         try{
 
-            $agrupamentos=Agrupamento::create($request->all());
+            $nucleos=Nucleo::findOrFail($request->nucleo_id);
+
+            $agrupamentos=new Agrupamento();
+            $agrupamentos->agrupamento_nome=$request->agrupamento_nome;
+            $agrupamentos->descricao=$request->descricao;
+
+            $nucleos->agrupamento()->save($agrupamentos);
+
             DB::commit();
-            return redirect()->route('agrupamentos.index')->with('success','Agrupamento Cadastrado com sucesso');
-        }
-        catch(\Exception $e){
+
+            return redirect()->route('agrupamentos.index')->with('success', 'Agrupamento cadastrado com sucesso');
+
+        }catch(\Exception $e){
 
             DB::rollBack();
-            return redirect()->route('agrupamentos.index')->with('error', 'Erro ao Cadastrar o Agrupamento');
+            return redirect()->route('agrupamentos.index')->with('error', 'Erro ao cadastrar o Agrupamento');
         }
-
-
-
-
-
     }
 
     public function show($id){
 
-        dd('Show =', $id);
-    }
-
-    public function edit($id){
-
         $agrupamentos=Agrupamento::findOrFail($id);
+         return view('admin.agrupamentos.show',compact('agrupamentos'));
+
+      }
+
+      public function edit($id){
         $nucleos=Nucleo::get();
-            return view('admin.agrupamentos.edit', compact('agrupamentos', 'nucleos'));
+        return view('admin.agrupamentos.edit', compact('nucleos','id'));
     }
 
     public function update(Request $request, $id){
+        $nucleos=Nucleo::findOrFail($request->nucleo_id);
+        $agrupamentos = Agrupamento::find($id);
+        $agrupamentos = $agrupamentos->update([
+            'agrupamento_nome' => $request->input('agrupamento_nome'),
+            'descricao' => $request->input('descricao'),
+            'nucleo_id' => $request->input('nucleo_id')
+        ]);
 
-        $agrupamentos=Agrupamento::findOrFail($id);
-
-        DB::beginTransaction();
-        try{
-
-
-            $agrupamentos->update($request->all());
-            DB::commit();
-            return redirect()->route('agrupamentos.index')->with('success','Agrupamento actualizado com sucesso');
-
-
+        if( $agrupamentos )
+        {
+            return redirect()->route('agrupamentos.index',compact('agrupamentos'));
         }
-        catch(\Exception $e){
-
-            DB::rollBack();
-            return redirect()->route('agrupamentos.index')->with("error", "Erro ao Actualizar o Agrupamento");
-        }
-
-
+        return back();
     }
 
-    public function destroy($id){
-
-        $agrupamentos=Agrupamento::findOrFail($id);
-        $agrupamentos->delete();
-        return redirect()->route('agrupamentos.index')->with('success', 'Agrupamento Eliminado com sucesso');
-
+    public function destroy($id)
+    {
+        //
+        $agrupamentos = Agrupamento::find( $id );
+        if( !$agrupamentos )
+            return back(); //Mensagem para o caso de n encontrar
+        if( !$agrupamentos->delete() )
+            return back(); // Mensagem para o caso de não ser possível deletar
+        return redirect()->route('agrupamentos.index');
     }
 }

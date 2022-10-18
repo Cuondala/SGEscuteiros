@@ -11,10 +11,11 @@
 
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Novo Dirigente</h5>
+            <h5 class="card-title">Editar Dirigente</h5>
 
 
-            <form {{-- name="personForm" id="personForm" --}} action="{{ route('dirigentes.store') }}" method="post" {{-- carregar-funcoes-url="{{ route('load_funcoes') }}" --}}>
+            <form action="{{ route('dirigentes.update', $id) }}" method="post">
+                @method('PUT')
                 @csrf
                 <div class="form-group row mb-4">
                     <div class="col-md-3">
@@ -101,26 +102,9 @@
 
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-outline-primary">Registrar</button>
+                    <button type="submit" class="btn btn-outline-primary">Salvar</button>
                 </div>
             </form>
-            {{-- <script type="text/javascript">
-                $(document).ready(function(){
-                    $("#dirigente_funcao_id").change(function(){
-                        const url = $('#personForm').attr("carregar-funcoes-url");
-                        dirigente_funcao_id = $(this).val();
-                        $.ajax({
-                            url:url,
-                            data:{
-                                'dirigente_funcao_id':dirigente_funcao_id,
-                            },
-                            sucess:function(data){
-                                $("#agrupamento_id").html(data);
-                            }
-                        });
-                    });
-                });
-            </script> --}}
 
           </div>
         </div>

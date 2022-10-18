@@ -7,22 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Dirigente extends Model
 {
-
-    protected $fillable=[ 'dirigente_nome',
-                            'bi',
-                            'endereco',
-                            'data_nascimento',
-                            'email',
-                            'descricao',
-                            'agrupamento_id',
-                            'patrulha_id',
-                            'dirigente_funcao_id',
-                            'seccao_id',
-                            'unidade_id',
-                            'unidade_autonoma_id'
-                        ];
-
-
+    protected $fillable = [
+        'dirigente_nome',
+        'bi',
+        'endereco',
+        'data_nascimento',
+        'email',
+        'descricao',
+        'agrupamento_id',
+        'patrulha_id',
+        'dirigente_funcao_id',
+        'seccao_id',
+        'unidade_id',
+        'unidade_autonoma_id'
+    ];
 
     public function agrupamento(){
         return $this->belongsTo(Agrupamento::class);
@@ -36,7 +34,7 @@ class Dirigente extends Model
         return $this->belongsTo(Unidade::class);
     }
 
-    public function unidadeAutononoma(){
+    public function unidadeAutonoma(){
         return $this->belongsTo(UnidadeAutonoma::class);
     }
 
@@ -49,6 +47,6 @@ class Dirigente extends Model
     }
 
     public function telefone(){
-        return $this->hasMany(Telefone::class);
+        return $this->hasOne(Telefone::class);
     }
 }

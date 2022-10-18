@@ -45,7 +45,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('agrupamentos.index') }}">
+        <a class="nav-link collapsed" href="{{ route('escuteiros.index') }}">
           <i class="fa fa-church"></i>
           <span>Escuteiro</span>
         </a>

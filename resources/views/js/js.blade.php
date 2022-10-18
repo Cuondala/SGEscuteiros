@@ -3,6 +3,7 @@
 
 // data tables usada em todas as paginas index
 
+
 $(document).ready(function () {
     $('#example').DataTable({
         order: [[3, 'asc']],
@@ -11,7 +12,7 @@ $(document).ready(function () {
 
 
 
-    $('#nucleo').on('click', function(){
+ $('#nucleo').on('click', function(){
 
 
     //console.log('bom dia')
