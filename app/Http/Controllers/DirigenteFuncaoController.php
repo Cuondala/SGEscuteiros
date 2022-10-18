@@ -73,8 +73,8 @@ class DirigenteFuncaoController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $cargos=DirigenteFuncao::findOrFail($id);
-        $cargos->update($request->all());
+        $cargos=DirigenteFuncao::findOrFail($id)->update($request->all());
+
 
         return redirect()->route('fucoes.index')->with('success', 'Cargo Actualizado com sucesso');
     }
@@ -88,8 +88,8 @@ class DirigenteFuncaoController extends Controller
     public function destroy($id)
     {
         //
-        $cargos=DirigenteFuncao::findOrFail($id);
-        $cargos->delete();
+        $cargos=DirigenteFuncao::findOrFail($id)->delete();
+
         return redirect()->route('fucoes.index')->with('success', 'Cargo Eliminado com sucesso');
     }
 }

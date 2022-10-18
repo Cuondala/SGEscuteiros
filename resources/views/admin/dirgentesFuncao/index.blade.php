@@ -6,14 +6,14 @@
 
         {{--  <a class="btn btn-primary mb-3"  data-bs-toggle="modal" data-bs-target="#create">Novo Nucleo</a> --}}
 
-        <a class="btn btn-primary mb-3"  href="#" data-bs-toggle="modal" data-bs-target="#create">Novo Cargo</a>
+        <a class="btn btn-primary mb-3"  href="#" data-bs-toggle="modal" data-bs-target="#create">Novos Cargos</a>
 
         <div class="row">
         <div class="col-lg-12">
 
             <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Cargo do Dirigente</h5>
+                <h5 class="card-title">Cargo dos Dirigentes</h5>
 
 
                 </form>
@@ -23,7 +23,7 @@
                 <thead>
                     <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Cargo</th>
+                    <th scope="col">Cargos</th>
                     <th scope="col">Acção</th>
                     </tr>
                 </thead>
