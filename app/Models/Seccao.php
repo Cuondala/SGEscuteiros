@@ -11,8 +11,8 @@ class Seccao extends Model
         return $this->belongsTo(Agrupamento::class);
     }
 
-    public function unidade_autonoma(){
-        return $this->belongsTo(Unidade_Autonoma::class);
+    public function unidadeAutonoma(){
+        return $this->belongsTo(UnidadeAutonoma::class);
     }
 
     public function dirigente(){

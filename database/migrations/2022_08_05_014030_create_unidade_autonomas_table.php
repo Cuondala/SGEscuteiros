@@ -18,6 +18,7 @@ class CreateUnidadeAutonomasTable extends Migration
             $table->string('unidade_autonoma_nome',50);
             $table->longText('descricao',250)->nullable();
             $table->foreignId('nucleo_id')->constrained();
+            $table->foreignId('seccao_id')->constrained();
             $table->timestamps();
         });
     }

@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class DirigenteFuncao extends Model
 {
+    protected $fillable=[
+                            'cargo',
+                            'descricao'
+                        ];
+
     public function dirigente(){
-        return $this->belongsTo(Dirigente::class);
+        return $this->hasMany(Dirigente::class);
     }
 }

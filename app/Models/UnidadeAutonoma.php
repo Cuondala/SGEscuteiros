@@ -5,8 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Unidade_Autonoma extends Model
+class UnidadeAutonoma extends Model
 {
+
+    protected $fillable=['unidade_autonoma_nome', 'descricao','nucleo_id', 'seccao_id'];
+
    public function nucleo(){
         return $this->belongsTo(Nucleo::class);
    }
@@ -18,4 +21,5 @@ class Unidade_Autonoma extends Model
    public function dirigente(){
         return $this->hasMany(Dirigente::class);
    }
+
 }

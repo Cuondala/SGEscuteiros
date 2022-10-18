@@ -9,6 +9,8 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Monolog\Registry;
+use PhpParser\Node\Stmt\TryCatch;
 
 class NucleoController extends Controller
 {
@@ -16,17 +18,17 @@ class NucleoController extends Controller
 
     public function index(){
 
-       $nucleos=Nucleo::with(['regiao','religiao'])->get();
+       $nucleos=Nucleo::with(['religiao','regiao'])->get();
 
-       /*
+/*
        $nucleos=DB::table('nucleos')
-                ->join('nucleos_religiaos', 'nucleos.id','=', 'nucleos_religiaos.nucleo_id')
-                ->join('religiaos', 'religiaos.id','=', 'nucleos_religiaos.religiao_id')
-                ->join('regiaos', 'regiaos.id','=','nucleos.regiao_id')
-                ->select('nucleos.*', 'religiaos.religiao_nome', 'regiaos.regiao_nome')
-                ->get()->dd();
+                ->join('regiaos', 'nucleos.regiao_id','=','regiaos.id')
+                //->join('nucleos_religiaos', 'nucleos.id','=', 'nucleos_religiaos.nucleo_id')
+                //->join('religiaos', 'religiaos.id','=', 'nucleos_religiaos.religiao_id')
+                ->select('nucleos.*', 'regiaos.regiao_nome')
+                ->get();
 
-                */
+*/
 
         return view('admin.nucloes.index', compact('nucleos'));
 
@@ -61,9 +63,13 @@ class NucleoController extends Controller
             $nucleos=new Nucleo();
             $nucleos->nucleo_nome=$request->nucleo_nome;
             $nucleos->descricao=$request->descricao;
+
+            //No nucleo tem parentese porque ainda nao foi adicionado um id da religiao na tabela
+
             $regiaos->nucleo()->save($nucleos);
 
-            $nucleos->religiao()->sync($request->religiao_id);
+            $nucleos->religiao()->attach($request->religiao_id);
+
 
             DB::commit();
 
@@ -74,18 +80,87 @@ class NucleoController extends Controller
 
             DB::rollBack();
             //Toastr::error("Falha ao cadastrar o Núcleo", "error", ['progressBarr'=>true, 'closeButton'=>true]);
-            return redirect()->route('nucleos.index')->with('error', 'Erro ao cadastrar o Nucleo');
+            return redirect()->route('nucleos.index')->with('error', 'Erro ao cadastrar o Nucleo'. $e->getMessage());
         }
     }
     public function show($id){
 
         $nucleos=Nucleo::findOrFail($id);
-         return view('admin.nucloes.modal.show');
+        $religiaos=$nucleos->religiao;
+         return view('admin.nucloes.show', compact('nucleos', 'religiaos'));
 
       }
-    public function edit($id){}
-    public function update(Request $request, $id){}
-    public function destroy($id){}
+    public function edit($id){
+        try{
+
+            $nucleos=Nucleo::findOrFail($id);
+
+            $regiaos=Regiao::get();
+            $religiaos=Religiao::get();
+
+
+            return view('admin.nucloes.edit', compact('nucleos', 'religiaos', 'regiaos'));
+        }
+        catch(\Exception $e){
+
+            return redirect()->back()->with('warning', 'O id selecionado nao existe');
+        }
+    }
+    public function update(Request $request, $id){
+
+        DB::beginTransaction();
+        try{
+
+
+            $nucleos=Nucleo::findOrFail($id);
+
+            $nucleos->update($request->all());
+
+            $nucleos->religiao()->sync($request->religiao_id);
+
+            DB::commit();
+
+            return redirect()->route('nucleos.index')->with('success','Nucleo Actualizado com sucesso');
+
+
+        }
+        catch(\Exception $e){
+
+            DB::rollBack();
+
+            return redirect()->route('nucleos.index')->with('error', 'Erro ao actualizar o Nucleo');
+        }
+
+
+    }
+    public function destroy($id){
+
+
+        DB::beginTransaction();
+        try{
+
+            $nucleos=Nucleo::findOrFail($id);
+            $nucleos->religiao()->detach();
+            $nucleos->delete();
+
+            DB::commit();
+            return redirect()->route('dirigentes.index')->with('success', 'nucleo eliminado com sucesso');
+
+        }catch(\Exception $e){
+
+            DB::rollBack();
+            return redirect()->route('nucleos.index')->with('error', 'Erro ao eliminar o nucleo');
+
+        }
+
+
+
+
+
+
+
+
+    }
     //public function store(Request $request){}
 
 

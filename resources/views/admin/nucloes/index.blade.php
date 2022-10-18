@@ -19,7 +19,7 @@
             </form>
 
             <!-- Table with stripped rows -->
-            <table class="table datatable">
+            <table id="example" class="table table-striped" style="width:100% ">
               <thead>
                 <tr>
                   <th scope="col">#</th>
@@ -37,16 +37,17 @@
                     <td>{{$nucleo->regiao->regiao_nome}}</td>
                     <td>{{ $nucleo->religiao->implode('religiao_nome')}}</td>
 
-
-
                     <td>
-                        <a href=" {{ route('nucleos.show', $nucleo->id) }}"><i class="fas fa-eye" style="color: green;"></i></a>
-                        <a href=" "><i class="fas fa-trash" style="color: red;"></i></a>
-                        <a href=" "><i class="fas fa-pen-to-square" ></i></a>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#show{{ $nucleo->id }}" ><i class="fas fa-eye" style="color: green;"></i></a>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#delete{{ $nucleo->id }}"><i class="fas fa-trash" style="color: red;"></i></a>
+                        <a href="{{ route('nucleos.edit', $nucleo->id) }} "><i class="fas fa-pen-to-square" ></i></a>
                     </td>
-                  </tr>
-                @endforeach
+                </tr>
 
+                  @include('admin.nucloes.modal.show')
+                  @include('admin.nucloes.modal.delete')
+
+                @endforeach
 
               </tbody>
             </table>
@@ -57,9 +58,9 @@
 
       </div>
     </div>
-  </section>
+</section>
 
 @endsection
 
-@include('admin.nucloes.modal.show')
+
 

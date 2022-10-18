@@ -9,14 +9,18 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <!-- Google Fonts -->
+  <!-- Favicons -->
+  <!--
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">-->
+
+  <!-- Google Fonts
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-<!-- Vendor CSS Files -->
+-->
+  <!-- Vendor CSS Files -->
 <link href="{{ asset("assets/vendor/bootstrap/css/bootstrap.min.css") }}" rel="stylesheet">
 <link href="{{ asset("assets/vendor/bootstrap-icons/bootstrap-icons.css") }}" rel="stylesheet">
 <link href="{{ asset("assets/vendor/boxicons/css/boxicons.min.css") }}" rel="stylesheet">
@@ -34,10 +38,27 @@
 <link rel="stylesheet" href="{{ asset('fontawesome-free-6.1.1-web/css/fontawesome.min.css') }}">
 <link rel="stylesheet" href="{{ asset('fontawesome-free-6.1.1-web/css/all.min.css') }}">
 
+{{-- datatables css--}}
+<link rel="stylesheet" href="{{ asset('dataTable/Bootstrap-5-5.1.3/css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('dataTable/DataTables-1.12.1/css/dataTables.bootstrap5.min.css') }}">
+
+
+
+
 {{-- toastr.min.css --}}
 <link rel="stylesheet" href="{{ asset('toastr.min.css') }}">
 <script src="{{ asset('toastr.min.js') }}"></script>
-<script src="{{ asset('jquery-3.6.0.min.js') }}"></script>
+
+
+{{-- datatables js
+    <script src="{{ asset('dataTable/DataTables-1.12.1/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('dataTable/DataTables-1.12.1/js/dataTables.bootstrap5.min.js') }}"></script>
+
+    --}}
+
+
+
+
   <!-- =======================================================
   * Template Name: NiceAdmin - v2.2.2
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
@@ -57,6 +78,7 @@
 
 
   <main id="main" class="main">
+
 
     <div class="pagetitle">
       <h1>Data Tables</h1>
@@ -98,8 +120,15 @@
 
  <script src="{{ asset('fontawesome-free-6.1.1-web/js/fontawesome.min.js') }}"></script>
 
- {{-- jquery --}}
- <script src="{{ asset('jquery-3.6.0.min.js') }}"></script>
+ {{-- jquery
+    <script src="{{ asset('jquery-3.6.0.min.js') }}"></script>
+    --}}
+
+ <script src="{{ asset('dataTable/jQuery-3.6.0/jquery-3.6.0.min.js') }}"></script>
+
+ {{-- dataTables js --}}
+ <script src="{{ asset('dataTable/DataTables-1.12.1/js/jquery.dataTables.min.js') }}"></script>
+ <script src="{{ asset('dataTable/DataTables-1.12.1/js/dataTables.bootstrap5.min.js') }}"></script>
 
   {{-- Toastr min.js --}}
   <script src="{{ asset('toastr.min.js') }}"></script>
@@ -119,14 +148,21 @@
 
         @elseif (Session::has('success'))
 
-            toastr.success('{{ Session::get('success') }}')
+            toastr.success('{{ Session::get('success') }}');
 
+        @elseif (Session::has('warning'))
+            toastr.warning('{{ Session::get('warning') }}');
+
+        @elseif (Session::has('info'))
+            toastr.info('{{ Session::get('info') }}')
         @endif
     });
 
-    </script>
 
 
+</script>
+
+    @include('js.js')
 
 </body>
 

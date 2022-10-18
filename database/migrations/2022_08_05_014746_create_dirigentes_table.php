@@ -23,7 +23,7 @@ class CreateDirigentesTable extends Migration
             $table->longText('descricao')->nullable();
             $table->foreignId('agrupamento_id')->nullable()->constrained();
             $table->foreignId('patrulha_id')->nullable()->constrained();
-            $table->foreignId('dirigente_funcaos')->nullable()->constrained();
+            $table->foreignId('dirigente_funcao_id')->nullable()->constrained();
             $table->foreignId('seccao_id')->nullable()->constrained();
             $table->foreignId('unidade_id')->nullable()->constrained();
             $table->foreignId('unidade_autonoma_id')->nullable()->constrained();
