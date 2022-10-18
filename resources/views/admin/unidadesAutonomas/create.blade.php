@@ -77,7 +77,7 @@
 
 
                 <div class="form-group mt-4">
-                    <button type="submit" class="btn btn-outline-primary">Registrar</button>
+                    <button type="submit" class="btn btn-outline-primary">Registra</button>
                 </div>
 
 
