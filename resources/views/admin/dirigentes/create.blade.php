@@ -86,7 +86,7 @@
                     </div>
                     <div class="col-md-3">
                         <select name="dirigente_funcao_id" id="" class="form-select">
-                            <option value="">Agrupamento</option>
+                            <option value="">Agrupamentos</option>
 
                         </select>
                     </div>
@@ -97,7 +97,7 @@
                 <div class="form-group row mb-4">
                     <div class="col-md-3">
                         <select name="dirigente_funcao_id" id="" class="form-select">
-                            <option value="">Patrulha</option>
+                            <option value="">Patrulhas</option>
 
                         </select>
                     </div>
@@ -118,7 +118,7 @@
 
                     <div class="col-md-3">
                         <select name="dirigente_funcao_id" id="" class="form-select">
-                            <option value="">Unidade Autonoma</option>
+                            <option value="">Unidades Autonomas</option>
 
                         </select>
                     </div>
@@ -139,7 +139,6 @@
                     </div>
 
                 </div>
-
 
 
 
